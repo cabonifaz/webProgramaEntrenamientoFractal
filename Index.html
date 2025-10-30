@@ -1,0 +1,1028 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prog - Fractal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .logo {
+            position: absolute;
+            top: 40px;
+            left: 50px;
+            width: 180px;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .logo img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .menu-button {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1e40af;
+            box-shadow: 0 4px 10px rgba(251, 191, 36, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(251, 191, 36, 0.5);
+        }
+
+        .menu-icon {
+            width: 20px;
+            height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        .menu-icon span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: #1e40af;
+            border-radius: 2px;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 70px;
+            right: 30px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            min-width: 200px;
+            display: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .dropdown-menu.active {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-menu a {
+            display: block;
+            padding: 12px 20px;
+            color: #1e40af;
+            text-decoration: none;
+            transition: background 0.2s ease;
+            font-weight: 500;
+        }
+
+        .dropdown-menu a:hover {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            margin-top: 20px;
+        }
+
+        .header h1 {
+            color: #1e40af;
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .back-button {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            margin-top: 60px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(30, 64, 175, 0.4);
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 800px;
+            height: 300px;
+            margin: 0 auto 40px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .program-section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .program-header {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .program-header h2 {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .components {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .component-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            border: 3px solid #fbbf24;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .component-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #1e40af 0%, #3b82f6 50%, #fbbf24 100%);
+        }
+
+        .component-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(251, 191, 36, 0.3);
+        }
+
+        .component-card h3 {
+            color: #1e40af;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .component-card .sessions {
+            color: #f59e0b;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .component-card .description {
+            color: #4a5568;
+            font-size: 13px;
+            line-height: 1.5;
+            text-align: justify;
+        }
+
+        .detail-view {
+            display: none;
+        }
+
+        .detail-view.active {
+            display: block;
+        }
+
+        .main-view.hidden {
+            display: none;
+        }
+
+        .schedule-section {
+            margin-bottom: 30px;
+        }
+
+        .schedule-image {
+            width: 100%;
+            max-width: 600px;
+            height: 250px;
+            margin: 0 auto 30px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .schedule-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .schedule-table {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .schedule-table h3 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-size: 22px;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+
+        .period-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 15px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            text-align: center;
+            letter-spacing: 0.3px;
+        }
+
+        .period-header.angular-period {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 12px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            border-bottom: 3px solid #f5f5f5;
+        }
+
+        th.angular-header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        td {
+            padding: 15px 12px;
+            border: 1px solid #e8e8e8;
+            text-align: center;
+            font-size: 13px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        tr:hover td {
+            background: #f8f9fa;
+        }
+
+        .time-col {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            font-weight: 700;
+            color: #5a3e36;
+            border-right: 3px solid #f5f5f5;
+            font-size: 12px;
+        }
+
+        tr:hover .time-col {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .class-cell {
+            color: white;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            font-size: 13px;
+        }
+
+        .class-cell:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Colores para React */
+        .react-cell {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .react-sql-cell {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #5a3e36;
+            font-weight: 700;
+        }
+
+        .react-csharp-cell {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* Colores para Angular */
+        .angular-cell {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .angular-sql-cell {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #5a3e36;
+            font-weight: 700;
+        }
+
+        .angular-csharp-cell {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .instructors {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .instructors-header-section {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .instructor-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+            flex-shrink: 0;
+        }
+
+        .instructor-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .instructors h3 {
+            color: #1e40af;
+            font-size: 18px;
+            border-bottom: 3px solid #fbbf24;
+            padding-bottom: 10px;
+        }
+
+        .instructor-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .instructor-card {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #1e40af;
+        }
+
+        .instructor-card strong {
+            color: #1e40af;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .instructor-card p {
+            color: #4a5568;
+            font-size: 13px;
+            margin: 3px 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .logo {
+                width: 140px;
+                top: 15px;
+                left: 20px;
+            }
+
+            .menu-button {
+                top: 15px;
+                right: 15px;
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+
+            .dropdown-menu {
+                top: 55px;
+                right: 15px;
+            }
+
+            .hero-image {
+                height: 200px;
+            }
+
+            .components {
+                grid-template-columns: 1fr;
+            }
+
+            .schedule-image {
+                height: 180px;
+            }
+
+            table {
+                font-size: 10px;
+            }
+
+            th, td {
+                padding: 6px 3px;
+            }
+
+            .instructors-header-section {
+                flex-direction: column;
+            }
+
+            .instructor-image {
+                width: 100%;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo" onclick="goToMain()">
+            <img src="https://www.fractal.com.pe/img/footer/fractal-logo.png" alt="Fractal Personal Logo">
+        </div>
+
+        <button class="menu-button" onclick="toggleMenu()">
+            <div class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            Menú
+        </button>
+
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="#" onclick="goToMain(); return false;">Inicio</a>
+            <a href="#componentes">Componentes</a>
+            <a href="#horarios">Horarios</a>
+            <a href="#instructores">Instructores</a>
+        </div>
+
+        <!-- Vista Principal -->
+        <div class="main-view" id="mainView">
+            <div class="header">
+                <h1>Programa de Entrenamiento N°13</h1>
+            </div>
+
+            <div class="hero-image">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=300&fit=crop" alt="Estudiantes trabajando juntos">
+            </div>
+
+            <div class="program-section">
+                <div class="program-header">
+                    <h2>COMPONENTES DEL PROGRAMA</h2>
+                </div>
+
+                <div class="components" id="componentes">
+                    <div class="component-card" onclick="showDetail('react')">
+                        <h3>React Js</h3>
+                        <p class="sessions">5 sesiones</p>
+                        <p class="description">Biblioteca de JavaScript para crear interfaces web dinámicas con componentes reutilizables.</p>
+                    </div>
+                    <div class="component-card" onclick="showDetail('angular')">
+                        <h3>Angular Js</h3>
+                        <p class="sessions">5 sesiones</p>
+                        <p class="description">Framework JavaScript para desarrollar aplicaciones web de una sola página (SPA).</p>
+                    </div>
+                    <div class="component-card" onclick="showDetail('sql')">
+                        <h3>MS SQL Server</h3>
+                        <p class="sessions">3 sesiones</p>
+                        <p class="description">Sistema de base de datos de Microsoft para almacenar y gestionar información de forma segura.</p>
+                    </div>
+                    <div class="component-card" onclick="showDetail('csharp')">
+                        <h3>C#</h3>
+                        <p class="sessions">2 sesiones</p>
+                        <p class="description">Lenguaje de programación de Microsoft para crear aplicaciones en .NET de forma rápida y moderna.</p>
+                    </div>
+                </div>
+
+                <div class="schedule-section" id="horarios">
+                    <div class="schedule-image">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&h=250&fit=crop" alt="Programación en laptop">
+                    </div>
+
+                    <div class="schedule-table">
+                        <h3>Horarios</h3>
+                        
+                        <div class="period-header">
+                            Del lunes 03/11/2025 al viernes 19/12/2025 - React Js
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>HORA</th>
+                                    <th>LUNES</th>
+                                    <th>MARTES</th>
+                                    <th>MIÉRCOLES</th>
+                                    <th>JUEVES</th>
+                                    <th>VIERNES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="time-col">6:30pm - 8:00pm</td>
+                                    <td class="class-cell react-cell">React Js</td>
+                                    <td class="class-cell react-cell">React Js</td>
+                                    <td class="class-cell react-cell">React Js</td>
+                                    <td class="class-cell react-cell">React Js</td>
+                                    <td class="class-cell react-cell">React Js</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-col">8:30pm - 10:00pm</td>
+                                    <td class="class-cell react-sql-cell">SQL Server</td>
+                                    <td class="class-cell react-csharp-cell">C#</td>
+                                    <td class="class-cell react-sql-cell">SQL Server</td>
+                                    <td class="class-cell react-csharp-cell">C#</td>
+                                    <td class="class-cell react-sql-cell">SQL Server</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="period-header angular-period" style="margin-top: 20px;">
+                            Del lunes 22/12/2025 al viernes 23/01/2026 - Angular Js
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="angular-header">HORA</th>
+                                    <th class="angular-header">LUNES</th>
+                                    <th class="angular-header">MARTES</th>
+                                    <th class="angular-header">MIÉRCOLES</th>
+                                    <th class="angular-header">JUEVES</th>
+                                    <th class="angular-header">VIERNES</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="time-col">6:30pm - 8:00pm</td>
+                                    <td class="class-cell angular-cell">Angular Js</td>
+                                    <td class="class-cell angular-cell">Angular Js</td>
+                                    <td class="class-cell angular-cell">Angular Js</td>
+                                    <td class="class-cell angular-cell">Angular Js</td>
+                                    <td class="class-cell angular-cell">Angular Js</td>
+                                </tr>
+                                <tr>
+                                    <td class="time-col">8:30pm - 10:00pm</td>
+                                    <td class="class-cell angular-sql-cell">SQL Server</td>
+                                    <td class="class-cell angular-csharp-cell">C#</td>
+                                    <td class="class-cell angular-sql-cell">SQL Server</td>
+                                    <td class="class-cell angular-csharp-cell">C#</td>
+                                    <td class="class-cell angular-sql-cell">SQL Server</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="instructors" id="instructores">
+                    <div class="instructors-header-section">
+                        <div class="instructor-image">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=200&h=200&fit=crop" alt="Equipo de instructores">
+                        </div>
+                        <div>
+                            <h3>INSTRUCTORES</h3>
+                        </div>
+                    </div>
+                    
+                    <div class="instructor-list">
+                        <div class="instructor-card">
+                            <strong>Daniel Soto (React Js)</strong>
+                            <p>Días: Lu, Mi, Vi</p>
+                            <p>Horario: 6:30-8pm</p>
+                        </div>
+                        <div class="instructor-card">
+                            <strong>Aymar Greldes (React Js)</strong>
+                            <p>Días: Ma, Ju</p>
+                            <p>Horario: 6:30-8pm</p>
+                        </div>
+                        <div class="instructor-card">
+                            <strong>Instructor Angular Js</strong>
+                            <p>Días: Lu, Mi, Vi</p>
+                            <p>Horario: 6:30-8pm</p>
+                        </div>
+                        <div class="instructor-card">
+                            <strong>Instructor Angular Js</strong>
+                            <p>Días: Ma, Ju</p>
+                            <p>Horario: 6:30-8pm</p>
+                        </div>
+                        <div class="instructor-card">
+                            <strong>Alvaro Burga (SQL Server)</strong>
+                            <p>Días: Lu, Mi</p>
+                            <p>Horario: 8:30-10pm</p>
+                        </div>
+                        <div class="instructor-card">
+                            <strong>Nikole La Cunza (SQL Server)</strong>
+                            <p>Días: Vi</p>
+                            <p>Horario: 8:30-10pm</p>
+                        </div>
+                        <div class="instructor-card">
+                            <strong>Alfredo Solano (C#)</strong>
+                            <p>Días: Ma-Ju</p>
+                            <p>Horario: 8:30-10pm</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vista de Detalle React -->
+        <div class="detail-view" id="reactDetail">
+            <button class="back-button" onclick="goToMain()">← Volver</button>
+            <div class="header">
+                <h1>React Js - Temario Detallado</h1>
+            </div>
+            <div class="program-section">
+                <div class="schedule-table">
+                    <h3>Cronograma de Sesiones</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Semana</th>
+                                <th>Fecha</th>
+                                <th>Día</th>
+                                <th>Hora</th>
+                                <th>Instructor</th>
+                                <th>Sesión</th>
+                                <th>Temas</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reactTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vista de Detalle Angular -->
+        <div class="detail-view" id="angularDetail">
+            <button class="back-button" onclick="goToMain()">← Volver</button>
+            <div class="header">
+                <h1>Angular Js - Temario Detallado</h1>
+            </div>
+            <div class="program-section">
+                <div class="schedule-table">
+                    <h3>Cronograma de Sesiones</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Semana</th>
+                                <th>Fecha</th>
+                                <th>Día</th>
+                                <th>Hora</th>
+                                <th>Instructor</th>
+                                <th>Sesión</th>
+                                <th>Temas</th>
+                            </tr>
+                        </thead>
+                        <tbody id="angularTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vista de Detalle SQL -->
+        <div class="detail-view" id="sqlDetail">
+            <button class="back-button" onclick="goToMain()">← Volver</button>
+            <div class="header">
+                <h1>SQL Server - Temario Detallado</h1>
+            </div>
+            <div class="program-section">
+                <div class="schedule-table">
+                    <h3>Cronograma de Sesiones</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Semana</th>
+                                <th>Fecha</th>
+                                <th>Día</th>
+                                <th>Hora</th>
+                                <th>Instructor</th>
+                                <th>Sesión</th>
+                                <th>Temas</th>
+                            </tr>
+                        </thead>
+                        <tbody id="sqlTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Vista de Detalle C# -->
+        <div class="detail-view" id="csharpDetail">
+            <button class="back-button" onclick="goToMain()">← Volver</button>
+            <div class="header">
+                <h1>C# - Temario Detallado</h1>
+            </div>
+            <div class="program-section">
+                <div class="schedule-table">
+                    <h3>Cronograma de Sesiones</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Semana</th>
+                                <th>Fecha</th>
+                                <th>Día</th>
+                                <th>Hora</th>
+                                <th>Instructor</th>
+                                <th>Sesión</th>
+                                <th>Temas</th>
+                            </tr>
+                        </thead>
+                        <tbody id="csharpTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const reactData = [
+            [1, 1, "11/3/2025", "Lunes", "6:30-8pm", "Daniel Soto", "1-2", "¿Qué es programar? Conceptos básicos de computación y la web - HTML esencial (estructura, etiquetas básicas)"],
+            [2, 1, "11/4/2025", "Martes", "6:30-8pm", "Aymara Grelds", "3-4", "HTML esencial (estructura, etiquetas básicas) - CSS esencial (colores, textos, cajas)"],
+            [3, 1, "11/5/2025", "Miércoles", "6:30-8pm", "Daniel Soto", "5-6", "CSS esencial (colores, textos, cajas) - Ejercicio práctico: página con texto y estilos"],
+            [4, 1, "11/6/2025", "Jueves", "6:30-8pm", "Aymara Grelds", "7-8", "Condicionales (if, else) - Funciones en JS"],
+            [5, 1, "11/7/2025", "Viernes", "6:30-8pm", "Daniel Soto", "9-10", "Bucles (for, while) - Ejercicios prácticos con funciones"],
+            [6, 2, "11/10/2025", "Lunes", "6:30-8pm", "Daniel Soto", "11-12", "Funciones en JS - Manipulación básica de arrays (push, map, forEach)"],
+            [7, 2, "11/11/2025", "Martes", "6:30-8pm", "Aymara Grelds", "13-14", "DOM (qué es y cómo seleccionamos elementos) - Eventos (onclick, onchange)"],
+            [8, 2, "11/12/2025", "Miércoles", "6:30-8pm", "Daniel Soto", "15-16", "Eventos (onclick, onchange) - Mini proyecto: lista de tareas con HTML+CSS+JS"],
+            [9, 2, "11/13/2025", "Jueves", "6:30-8pm", "Aymara Grelds", "17-18", "Introducción a JSON y datos estructurados - Mini proyecto: lista de tareas en React"],
+            [10, 2, "11/14/2025", "Viernes", "6:30-8pm", "Daniel Soto", "19-20", "¿Qué es React y para qué sirve - JSX vs HTML"],
+            [11, 3, "11/17/2025", "Lunes", "6:30-8pm", "Daniel Soto", "21-22", "Instalación (Node.js, Vite/Create React App) - Props: pasar información a componentes"],
+            [12, 3, "11/18/2025", "Martes", "6:30-8pm", "Aymara Grelds", "23-24", "Estructura de un proyecto React - Ejercicio: pasar props entre componentes"],
+            [13, 3, "11/19/2025", "Miércoles", "6:30-8pm", "Daniel Soto", "25-26", "Hook useState - Renderizado condicional"],
+            [14, 3, "11/20/2025", "Jueves", "6:30-8pm", "Aymara Grelds", "27-28", "Renderizado condicional - Mini proyecto: To-Do List en React"],
+            [15, 3, "11/21/2025", "Viernes", "6:30-8pm", "Daniel Soto", "29-30", "Listas y .map() - Manejo de estados de carga y error"],
+            [16, 4, "11/24/2025", "Lunes", "6:30-8pm", "Daniel Soto", "31-32", "Formularios controlados - Ejercicio: tabla de usuarios desde API"],
+            [17, 4, "11/25/2025", "Martes", "6:30-8pm", "Aymara Grelds", "33-34", "Hook useEffect - Ejercicio: blog simple con páginas dinámicas"],
+            [18, 4, "11/26/2025", "Miércoles", "6:30-8pm", "Daniel Soto", "35-36", "Fetch en React (llamadas a API) - Mini proyecto: app de notas"],
+            [19, 4, "11/27/2025", "Jueves", "6:30-8pm", "Aymara Grelds", "37-38", "Ejercicio: mostrar datos de una API - Integración con API simulada"],
+            [20, 4, "11/28/2025", "Viernes", "6:30-8pm", "Daniel Soto", "39-40", "Introducción a React Router - Mini proyecto: lista de usuarios con búsqueda"],
+            [21, 5, "12/1/2025", "Lunes", "6:30-8pm", "Daniel Soto", "41-42", "Parámetros en rutas - Mini proyecto: rutas y navegación"],
+            [22, 5, "12/2/2025", "Martes", "6:30-8pm", "Aymara Grelds", "43-44", "Organización de carpetas y componentes - Ejercicio: blog simple con páginas dinámicas"],
+            [23, 5, "12/3/2025", "Miércoles", "6:30-8pm", "Daniel Soto", "45-46", "Planteamiento del proyecto final - Proyecto final: mini-sitio web"],
+            [24, 5, "12/4/2025", "Jueves", "6:30-8pm", "Aymara Grelds", "47-48", "Construcción de componentes principales - Ejercicio: mini-proyecto con login"],
+            [25, 5, "12/5/2025", "Viernes", "6:30-8pm", "Daniel Soto", "49-50", "¿Qué es un Microfrontend? Conceptos, arquitectura y casos de uso - Ventajas y desventajas: cuándo usar MFE y cuándo NO"],
+            [26, 6, "12/8/2025", "Feriado", "", "", "", ""],
+            [27, 6, "12/9/2025", "Feriado", "", "", "", ""],
+            [28, 6, "12/10/2025", "Miércoles", "6:30-8pm", "Daniel Soto", "51-52", "Técnicas para Microfrontends: Routing, IFrames, Web Components, Module Federation - Comparativa de técnicas y selección según proyecto"],
+            [29, 6, "12/11/2025", "Jueves", "6:30-8pm", "Aymara Grelds", "53-54", "Microfrontends con React: estructura, comunicación entre apps - Module Federation con Webpack: configuración inicial"],
+            [30, 6, "12/12/2025", "Viernes", "6:30-8pm", "Daniel Soto", "55-56", "Compartición de dependencias y comunicación entre Microfrontends - Ejercicio práctico: dos apps React compartiendo componentes"],
+            [31, 7, "12/15/2025", "Lunes", "6:30-8pm", "Daniel Soto", "57-58", "Despliegue independiente de Microfrontends - Orquestación de MFE + buenas prácticas"],
+            [32, 7, "12/16/2025", "Martes", "6:30-8pm", "Aymara Grelds", "59-60", "Proyecto Final Microfrontends – Parte 1: Setup y arquitectura (Inicio del Proyecto) – Parte 2: Integración y demo (Primer avance)"],
+            [33, 7, "12/17/2025", "Miércoles", "6:30-8pm", "Daniel Soto", "59-60", "Proyecto Final Microfrontends – Parte 3: Setup y arquitectura (Ampliación y ajustes) – Parte 4: Integración y demo (Segundo avance)"],
+            [34, 7, "12/18/2025", "Jueves", "6:30-8pm", "Aymara Grelds", "59-60", "Proyecto Final Microfrontends – Parte 5: Setup y arquitectura (Integración avanzada + Preparación para Deploy) – Parte 6: Integración y demo (Tercer avance)"],
+            [35, 7, "12/19/2025", "Viernes", "6:30-8pm", "Daniel Soto", "59-60", "Proyecto Final Microfrontends – Parte 7: Setup y arquitectura (Revisión final + Preparación de presentación) – Parte 8: Integración y demo (Presentación Final + Retroalimentación)"]
+        ];
+
+        const angularData = [
+            [1, 1, "12/22/2025", "Lunes", "6:30-8pm", "", "1-2", "¿Qué es AngularJS? Introducción a SPA y primeras configuraciones - Data Binding básico ({{}} y ng-model). Directivas simples: ng-repeat, ng-if, ng-show"],
+            [2, 1, "12/23/2025", "Martes", "6:30-8pm", "", "3-4", "Controladores y $scope: cómo manejar datos en pantalla - Filtros básicos (filters) y cómo usarlos"],
+            [3, 1, "12/24/2025", "Feriado", "", "", "", ""],
+            [4, 2, "12/25/2025", "Feriado", "", "", "", ""],
+            [5, 2, "12/26/2025", "Viernes", "6:30-8pm", "", "5-6", "Servicios: qué son y cómo crear uno propio - Uso de $http: cargar datos locales y llamar APIs (GET, POST)"],
+            [6, 3, "12/29/2025", "Lunes", "6:30-8pm", "", "7-8", "Comunicación entre pantallas y formularios básicos con AngularJS - Directivas personalizadas: crear pequeños componentes"],
+            [7, 3, "12/30/2025", "Martes", "6:30-8pm", "", "9-10", "JSON y APIs - Enviar/editar datos y manejo básico de errores - Navegación entre páginas con ngRoute (rutas y parámetros)"],
+            [8, 3, "12/31/2025", "Feriado", "6:30-8pm", "", "", ""],
+            [9, 3, "1/1/2026", "Feriado", "6:30-8pm", "", "", ""],
+            [10, 4, "1/2/2026", "Viernes", "6:30-8pm", "", "11-12", "Organización del proyecto y buenas prácticas iniciales - Diferencia entre Services, Factories y Providers (explicado simple)"],
+            [11, 4, "1/5/2026", "Lunes", "6:30-8pm", "", "13-14", "Promesas ($q) y estados de carga en llamadas a API - Filtros para buscar, ordenar y paginar datos"],
+            [12, 4, "1/6/2026", "Feriado", "6:30-8pm", "", "", ""],
+            [13, 5, "1/7/2026", "Miércoles", "6:30-8pm", "", "15-16", "Interceptors: manejar errores globalmente - Optimización básica: cómo hacer tu app más rápida"],
+            [14, 5, "1/8/2026", "Jueves", "6:30-8pm", "", "17-18", "Introducción a componentes en AngularJS y diferencia con Angular moderno - Testing básico: primeras pruebas en AngularJS"],
+            [15, 5, "1/9/2026", "Viernes", "6:30-8pm", "", "19-20", "APIs externas y login simple (concepto) - Cómo migrar de AngularJS a Angular (versión moderna)"],
+            [16, 6, "1/12/2026", "Lunes", "6:30-8pm", "", "21-22", "Trucos para performance y depuración - Buenas prácticas finales y patrones recomendados"],
+            [17, 6, "1/13/2026", "Martes", "6:30-8pm", "", "23-24", "¿Qué es un Microfrontend? Ventajas y cuándo usarlo - Diferencias entre una app monolítica y microfrontends"],
+            [18, 6, "1/14/2026", "Miércoles", "6:30-8pm", "", "25-26", "Formas de implementar Microfrontends con AngularJS (Iframes, Web Components, Routing) - Pros y contras de cada forma y cuándo elegir cada una"],
+            [19, 6, "1/15/2026", "Jueves", "6:30-8pm", "", "27-28", "Introducción a Module Federation (concepto básico aplicado a AngularJS/Angular) - Configuración inicial simple para compartir partes entre apps"],
+            [20, 6, "1/16/2026", "Viernes", "6:30-8pm", "", "29-30", "Comunicación entre Microfrontends (eventos, mensajes y servicios compartidos) - Manejo de estados entre Microfrontends (sesión, login, datos compartidos)"],
+            [21, 7, "1/19/2026", "Lunes", "6:30-8pm", "", "31-32", "Despliegue independiente de Microfrontends (cómo actualizar una parte sin tocar todo) - Versionamiento y compatibilidad entre Microfrontends"],
+            [22, 7, "1/20/2026", "Martes", "6:30-8pm", "", "33-34", "Mini Proyecto - Parte 1: Setup inicial y arquitectura del proyecto - Parte 2: Avance de funcionalidad y primera integración visual"],
+            [23, 7, "1/21/2026", "Miércoles", "6:30-8pm", "", "35-36", "Mini Proyecto - Parte 3: Integración de lógica (agregar productos al carrito) - Parte 4: Funcionalidades del carrito (total y eliminar productos)"],
+            [24, 7, "1/22/2026", "Jueves", "6:30-8pm", "", "37-38", "Mini Proyecto - Parte 5: Estilos básicos (mejorando la UI del mini e-commerce) - Parte 6: Inspiración UI y ajustes visuales finales antes del demo"],
+            [25, 7, "1/23/2026", "Viernes", "6:30-8pm", "", "39-40", "Mini Proyecto - Parte 7: Preparación del Demo y guion de presentación - Parte 8: Presentación Oficial, Evaluación y Cierre del Proyecto"]
+        ];
+
+        const sqlData = [
+            [1, 1, "11/3/2025", "Lunes", "8:30-10pm", "Alvaro Burga", "1-2", "Instalación de SQL Server - Configuración inicial de SQL Server"],
+            [2, 1, "11/5/2025", "Miércoles", "8:30-10pm", "Alvaro Burga", "3-4", "Introducción a SQL y SQL Server - Primeros pasos con SQL"],
+            [3, 1, "11/7/2025", "Viernes", "8:30-10pm", "Nikole La Cunza", "5-6", "Consultas básicas: SELECT - Funciones básicas"],
+            [4, 2, "11/10/2025", "Lunes", "8:30-10pm", "Alvaro Burga", "7-8", "Group By y Having - Tipos de datos en SQL Server"],
+            [5, 2, "11/12/2025", "Miércoles", "8:30-10pm", "Alvaro Burga", "9-10", "Modificación de datos - Joins: INNER JOIN"],
+            [6, 2, "11/14/2025", "Viernes", "8:30-10pm", "Nikole La Cunza", "11-12", "Subconsultas - Subconsultas en WHERE"],
+            [7, 3, "11/17/2025", "Lunes", "8:30-10pm", "Alvaro Burga", "13-14", "Subconsultas en FROM - Introducción a índices"],
+            [8, 3, "11/19/2025", "Miércoles", "8:30-10pm", "Alvaro Burga", "15-16", "Cláusulas CASE y COALESCE - Vistas"],
+            [9, 3, "11/21/2025", "Viernes", "8:30-10pm", "Nikole La Cunza", "17-18", "Procedimientos almacenados (SP) - Variables en T-SQL"],
+            [10, 4, "11/24/2025", "Lunes", "8:30-10pm", "Alvaro Burga", "19-20", "Funciones definidas por el usuario (UDF) - Control de flujo: IF, WHILE"],
+            [11, 4, "11/26/2025", "Miércoles", "8:30-10pm", "Alvaro Burga", "21-22", "Triggers - Transacciones y manejo de errores"],
+            [12, 4, "11/28/2025", "Viernes", "8:30-10pm", "Nikole La Cunza", "23-24", "Cláusulas JOIN avanzadas - Funciones de ventana (OVER)"],
+            [13, 5, "12/1/2025", "Lunes", "8:30-10pm", "Alvaro Burga", "25-26", "Common Table Expressions (CTE) - Optimización de consultas"],
+            [14, 5, "12/3/2025", "Miércoles", "8:30-10pm", "Alvaro Burga", "27-28", "Introducción a Normalización - Primeras formas normales (1NF, 2NF)"],
+            [15, 5, "12/5/2025", "Viernes", "8:30-10pm", "Nikole La Cunza", "29-30", "Tercera forma normal (3NF) - Índices avanzados"],
+            [16, 6, "12/8/2025", "Feriado", "", "", "", ""],
+            [17, 6, "12/10/2025", "Miércoles", "8:30-10pm", "Alvaro Burga", "31-32", "Funciones de texto - Funciones de fecha y hora"],
+            [18, 6, "12/12/2025", "Viernes", "8:30-10pm", "Nikole La Cunza", "33-34", "Procedimientos almacenados avanzados - Cursores"],
+            [19, 7, "12/15/2025", "Lunes", "8:30-10pm", "Alvaro Burga", "35-36", "Introducción a SQL dinámico - Métodos de depuración"],
+            [20, 7, "12/17/2025", "Miércoles", "8:30-10pm", "Alvaro Burga", "37-38", "Particionamiento de datos - Seguridad y permisos en SQL Server"],
+            [21, 7, "12/19/2025", "Viernes", "8:30-10pm", "Nikole La Cunza", "39-40", "Copias de seguridad y restauración - Procedimientos de recuperación"],
+            [22, 8, "12/22/2025", "Lunes", "8:30-10pm", "Alvaro Burga", "41-42", "SQL Server Management Studio (SSMS) avanzado - Optimización de índices"],
+            [23, 8, "12/24/2025", "Feriado", "", "", "", ""],
+            [24, 8, "12/26/2025", "Viernes", "8:30-10pm", "Nikole La Cunza", "43-44", "Conexión remota y administración - SQL Server Reporting Services (SSRS)"],
+            [25, 9, "12/29/2025", "Lunes", "8:30-10pm", "Alvaro Burga", "45-46", "SQL Server Integration Services (SSIS) - SQL Server Analysis Services (SSAS)"],
+            [26, 9, "12/31/2025", "Feriado", "", "", "", ""],
+            [27, 9, "1/2/2026", "Viernes", "8:30-10pm", "Nikole La Cunza", "47-48", "Desarrollando aplicaciones con T-SQL - Prácticas con subconsultas y joins"],
+            [28, 10, "1/5/2026", "Lunes", "8:30-10pm", "Alvaro Burga", "49-50", "Prácticas de optimización - Casos de uso de funciones de ventana"],
+            [29, 10, "1/7/2026", "Miércoles", "8:30-10pm", "Alvaro Burga", "51-52", "Integración de T-SQL con otras tecnologías - Procedimientos y funciones avanzadas"],
+            [30, 10, "1/9/2026", "Viernes", "8:30-10pm", "Nikole La Cunza", "53-54", "Manejo de errores y control de flujo - Introducción a SQL Server Profiler"],
+            [31, 11, "1/12/2026", "Lunes", "8:30-10pm", "Alvaro Burga", "55-56", "Implementación de seguridad avanzada - Ejercicios de rendimiento de consultas"],
+            [32, 11, "1/14/2026", "Miércoles", "8:30-10pm", "Alvaro Burga", "57-58", "Práctica de procedimientos almacenados - Optimización de consultas en ambientes de producción"],
+            [33, 11, "1/16/2026", "Viernes", "8:30-10pm", "Nikole La Cunza", "59-60", "Análisis de consultas lentas - Administración de usuarios y roles"],
+            [34, 12, "1/19/2026", "Lunes", "8:30-10pm", "Alvaro Burga", "61-62", "Carga de datos con SSIS - Creación de bases de datos complejas"],
+            [35, 12, "1/21/2026", "Miércoles", "8:30-10pm", "Alvaro Burga", "63-64", "Migración y transferencia de datos - Certificación y conclusión"]
+        ];
+
+        const csharpData = [
+            [1, 1, "11/4/2025", "Martes", "8:30-10pm", "Alfredo Solano", "1", "Introducción a C# y al ecosistema .NET"],
+            [2, 1, "11/6/2025", "Jueves", "8:30-10pm", "Alfredo Solano", "2", "Fundamentos de programación"],
+            [3, 2, "11/11/2025", "Martes", "8:30-10pm", "Alfredo Solano", "3", "Introducción a Git y GitHub para proyectos C#"],
+            [4, 2, "11/13/2025", "Jueves", "8:30-10pm", "Alfredo Solano", "4", "Arreglos y colecciones"],
+            [5, 3, "11/18/2025", "Martes", "8:30-10pm", "Alfredo Solano", "5", "Funciones y métodos"],
+            [6, 3, "11/20/2025", "Jueves", "8:30-10pm", "Alfredo Solano", "6", "Clases y objetos"],
+            [7, 4, "11/25/2025", "Martes", "8:30-10pm", "Alfredo Solano", "7", "Encapsulamiento e instanciación"],
+            [8, 4, "11/27/2025", "Jueves", "8:30-10pm", "Alfredo Solano", "8", "Herencia y polimorfismo"],
+            [9, 5, "12/2/2025", "Martes", "8:30-10pm", "Alfredo Solano", "9", "Interfaces y clases abstractas"],
+            [10, 5, "12/4/2025", "Jueves", "8:30-10pm", "Alfredo Solano", "10", "Manejo de archivos"],
+            [11, 6, "12/9/2025", "Feriado", "", "", "", ""],
+            [12, 6, "12/11/2025", "Jueves", "8:30-10pm", "Alfredo Solano", "11", "Excepciones y manejo de errores"],
+            [13, 7, "12/16/2025", "Martes", "8:30-10pm", "Alfredo Solano", "12", "Conexión a bases de datos"],
+            [14, 7, "12/18/2025", "Jueves", "8:30-10pm", "Alfredo Solano", "13", "Entity Framework Core + Migrations"],
+            [15, 8, "12/23/2025", "Martes", "8:30-10pm", "Alfredo Solano", "14", "Procedimientos almacenados"],
+            [16, 8, "12/25/2025", "Feriado", "", "", "", ""],
+            [17, 9, "12/30/2025", "Martes", "8:30-10pm", "Alfredo Solano", "15", "Creación de una API REST"],
+            [18, 9, "1/1/2026", "Feriado", "", "", "", ""],
+            [19, 10, "1/6/2026", "Feriado", "", "", "", ""],
+            [20, 10, "1/8/2026", "Jueves", "8:30-10pm", "Alfredo Solano", "16", "Integración con SQL Server desde la API"],
+            [21, 11, "1/13/2026", "Martes", "8:30-10pm", "Alfredo Solano", "17", "Introducción a Clean Code y SOLID"],
+            [22, 11, "1/15/2026", "Jueves", "8:30-10pm", "Alfredo Solano", "18", "Proyecto integrador"],
+            [23, 12, "1/20/2026", "Martes", "8:30-10pm", "Alfredo Solano", "19", "Despliegue y cierre del proyecto"],
+            [24, 12, "1/22/2026", "Jueves", "8:30-10pm", "Alfredo Solano", "20", "CI/CD con GitHub Actions o Azure DevOps"]
+        ];
+
+        function populateTable(data, tableBodyId) {
+            const tbody = document.getElementById(tableBodyId);
+            tbody.innerHTML = '';
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                row.forEach(cell => {
+                    const td = document.createElement('td');
+                    td.textContent = cell;
+                    tr.appendChild(td);
+                });
+                tbody.appendChild(tr);
+            });
+        }
+
+        function showDetail(component) {
+            document.getElementById('mainView').classList.add('hidden');
+            document.getElementById('reactDetail').classList.remove('active');
+            document.getElementById('angularDetail').classList.remove('active');
+            document.getElementById('sqlDetail').classList.remove('active');
+            document.getElementById('csharpDetail').classList.remove('active');
+
+            if (component === 'react') {
+                document.getElementById('reactDetail').classList.add('active');
+                populateTable(reactData, 'reactTableBody');
+            } else if (component === 'angular') {
+                document.getElementById('angularDetail').classList.add('active');
+                populateTable(angularData, 'angularTableBody');
+            } else if (component === 'sql') {
+                document.getElementById('sqlDetail').classList.add('active');
+                populateTable(sqlData, 'sqlTableBody');
+            } else if (component === 'csharp') {
+                document.getElementById('csharpDetail').classList.add('active');
+                populateTable(csharpData, 'csharpTableBody');
+            }
+
+            window.scrollTo(0, 0);
+        }
+
+        function goToMain() {
+            document.getElementById('mainView').classList.remove('hidden');
+            document.getElementById('reactDetail').classList.remove('active');
+            document.getElementById('angularDetail').classList.remove('active');
+            document.getElementById('sqlDetail').classList.remove('active');
+            document.getElementById('csharpDetail').classList.remove('active');
+            window.scrollTo(0, 0);
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('dropdownMenu');
+            menu.classList.toggle('active');
+        }
+
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('dropdownMenu');
+            const button = document.querySelector('.menu-button');
+            
+            if (!button.contains(event.target) && !menu.contains(event.target)) {
+                menu.classList.remove('active');
+            }
+        });
+
+        document.querySelectorAll('.dropdown-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('dropdownMenu').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
