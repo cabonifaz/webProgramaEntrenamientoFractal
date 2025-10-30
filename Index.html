@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Prog - Fractal</title>
+    <title>Programas de Entrenamiento - Fractal</title>
     <style>
         * {
             margin: 0;
@@ -286,126 +285,95 @@
 
         .schedule-table {
             background: white;
-            border-radius: 15px;
+            border-radius: 10px;
             overflow: hidden;
             margin-bottom: 30px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow-x: auto;
         }
 
         .schedule-table h3 {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            font-size: 22px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e40af;
+            padding: 15px 20px;
+            font-size: 18px;
             font-weight: 700;
-            text-align: center;
-            letter-spacing: 0.5px;
         }
 
         .period-header {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
             color: white;
-            padding: 15px 20px;
-            font-size: 15px;
+            padding: 12px 20px;
+            font-size: 16px;
             font-weight: 600;
             text-align: center;
-            letter-spacing: 0.3px;
         }
 
         .period-header.angular-period {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
         }
 
         table {
             width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
+            border-collapse: collapse;
         }
 
         th {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #1e40af;
             color: white;
-            padding: 15px 12px;
+            padding: 12px;
             text-align: center;
             font-weight: 600;
-            font-size: 13px;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-            border-bottom: 3px solid #f5f5f5;
-        }
-
-        th.angular-header {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
-        td {
-            padding: 15px 12px;
-            border: 1px solid #e8e8e8;
-            text-align: center;
-            font-size: 13px;
-            background: white;
-            transition: all 0.3s ease;
-        }
-
-        tr:hover td {
-            background: #f8f9fa;
-        }
-
-        .time-col {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            font-weight: 700;
-            color: #5a3e36;
-            border-right: 3px solid #f5f5f5;
             font-size: 12px;
         }
 
-        tr:hover .time-col {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        th.angular-header {
+            background: #1e40af;
+        }
+
+        td {
+            padding: 12px;
+            border: 1px solid #dbeafe;
+            text-align: center;
+            font-size: 11px;
+        }
+
+        .time-col {
+            background: #fef3c7;
+            font-weight: 600;
+            color: #1e40af;
         }
 
         .class-cell {
             color: white;
-            font-weight: 600;
-            border-radius: 8px;
-            padding: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            font-size: 13px;
+            font-weight: 500;
+            border-radius: 5px;
         }
 
-        .class-cell:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Colores para React */
         .react-cell {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
         }
 
         .react-sql-cell {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            color: #5a3e36;
-            font-weight: 700;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e40af;
         }
 
         .react-csharp-cell {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
         }
 
-        /* Colores para Angular */
         .angular-cell {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background: linear-gradient(135deg, #30D5C8 0%, #51d1f6 100%);
         }
 
         .angular-sql-cell {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            color: #5a3e36;
-            font-weight: 700;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: #1e40af;
         }
 
         .angular-csharp-cell {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
         }
 
         .instructors {
@@ -572,7 +540,7 @@
                         <p class="description">Framework JavaScript para desarrollar aplicaciones web de una sola página (SPA).</p>
                     </div>
                     <div class="component-card" onclick="showDetail('sql')">
-                        <h3>MS SQL Server</h3>
+                        <h3>MSSQL Server</h3>
                         <p class="sessions">3 sesiones</p>
                         <p class="description">Sistema de base de datos de Microsoft para almacenar y gestionar información de forma segura.</p>
                     </div>
