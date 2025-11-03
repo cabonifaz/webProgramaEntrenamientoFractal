@@ -2591,16 +2591,19 @@
                 <div class="footer-section">
                     <h3>Programa</h3>
                     <div class="footer-links">
-                        <a href="#" class="footer-link" onclick="scrollToSection('components')">→ Componentes</a>
-                        <a href="#" class="footer-link" onclick="scrollToSection('schedule')">→ Horarios</a>
-                        <a href="#" class="footer-link" onclick="scrollToSection('instructors')">→ Instructores</a>
+                        <a href="javascript:void(0);" class="footer-link"
+                            onclick="scrollToSection('components'); return false;">→ Componentes</a>
+                        <a href="javascript:void(0);" class="footer-link"
+                            onclick="scrollToSection('schedule'); return false;">→ Horarios</a>
+                        <a href="javascript:void(0);" class="footer-link"
+                            onclick="scrollToSection('instructors'); return false;">→ Instructores</a>
                     </div>
                 </div>
                 <div class="footer-section">
                     <h3>Contacto</h3>
                     <div class="footer-links">
-                        <span class="footer-link">📧 info@fractal.com.pe</span>
-                        <span class="footer-link">📱 +51 999 999 999</span>
+                        <a href="https://www.fractal.com.pe/" target="_blank" class="footer-link">🌐
+                            www.fractal.com.pe</a>
                         <span class="footer-link">📍 Lima, Perú</span>
                     </div>
                 </div>
@@ -3377,421 +3380,421 @@
             <div class="detail-hero-content">
                 <button class="back-btn" onclick="goBack()">← Volver al inicio</button>
                 <div class="detail-title-section">
-                        <div class="detail-icon-large">
-                            <svg viewBox="0 0 24 24" style="width: 50px; height: 50px;" fill="white">
-                                <path d="M12 3C7.58 3 4 4.79 4 7s3.58 4 8 4 8-1.79 8-4-3.58-4-8-4z" />
-                                <path d="M4 9v3c0 2.21 3.58 4 8 4s8-1.79 8-4V9c0 2.21-3.58 4-8 4s-8-1.79-8-4z" />
-                                <path d="M4 14v3c0 2.21 3.58 4 8 4s8-1.79 8-4v-3c0 2.21-3.58 4-8 4s-8-1.79-8-4z" />
-                            </svg>
-                        </div>
-                        <div>
-                            <h1 class="detail-title">MSSQL Server</h1>
-                            <div class="detail-meta">
-                                <span class="meta-item">📖 3 sesiones intensivas</span>
-                                <span class="meta-item">⏰ 8:30pm - 10:00pm</span>
-                            </div>
-                        </div>
+                    <div class="detail-icon-large">
+                        <svg viewBox="0 0 24 24" style="width: 50px; height: 50px;" fill="white">
+                            <path d="M12 3C7.58 3 4 4.79 4 7s3.58 4 8 4 8-1.79 8-4-3.58-4-8-4z" />
+                            <path d="M4 9v3c0 2.21 3.58 4 8 4s8-1.79 8-4V9c0 2.21-3.58 4-8 4s-8-1.79-8-4z" />
+                            <path d="M4 14v3c0 2.21 3.58 4 8 4s8-1.79 8-4v-3c0 2.21-3.58 4-8 4s-8-1.79-8-4z" />
+                        </svg>
                     </div>
-                </div>
-            </div>
-            <div class="detail-content-section">
-                <div class="syllabus-card">
-                    <div class="syllabus-header">
-                        <h2 class="syllabus-title">Temario Completo - MSSQL Server</h2>
-                        <p class="syllabus-description">Desde fundamentos hasta técnicas avanzadas de bases de datos</p>
-                    </div>
-                    <div class="syllabus-filters">
-                        <div class="filter-group">
-                            <label for="filterDateSql">📅 Filtrar por Fecha:</label>
-                            <input type="date" id="filterDateSql" class="filter-input" onchange="filterTable('sql')">
+                    <div>
+                        <h1 class="detail-title">MSSQL Server</h1>
+                        <div class="detail-meta">
+                            <span class="meta-item">📖 3 sesiones intensivas</span>
+                            <span class="meta-item">⏰ 8:30pm - 10:00pm</span>
                         </div>
-                        <div class="filter-group">
-                            <label for="filterInstructorSql">👨‍💻 Filtrar por Instructor:</label>
-                            <select id="filterInstructorSql" class="filter-select" onchange="filterTable('sql')">
-                                <option value="">Todos los instructores</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label for="filterTopicSql">📚 Filtrar por Tema:</label>
-                            <input type="text" id="filterTopicSql" class="filter-input"
-                                placeholder="Ej: SELECT, JOIN..." oninput="filterTable('sql')">
-                        </div>
-                        <button class="clear-filters-btn" onclick="clearFilters('sql')">✕ Limpiar Filtros</button>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="syllabus-table">
-                            <thead>
-                                <tr>
-                                    <th style="width: 60px;">N°</th>
-                                    <th style="width: 70px;">Semana</th>
-                                    <th style="width: 100px;">Fecha</th>
-                                    <th style="width: 90px;">Día</th>
-                                    <th style="width: 100px;">Hora</th>
-                                    <th style="width: 130px;">Instructor</th>
-                                    <th style="width: 80px;">Sesión</th>
-                                    <th>Temas</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="session-number">1</td>
-                                    <td>1</td>
-                                    <td class="session-date">03/11/2025</td>
-                                    <td>Lunes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>1-2</td>
-                                    <td class="session-topics">Instalación y configuración inicial de SQL Server</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">2</td>
-                                    <td>1</td>
-                                    <td class="session-date">05/11/2025</td>
-                                    <td>Miércoles</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>3-4</td>
-                                    <td class="session-topics">Introducción a SQL Server y primeros pasos con SQL</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">3</td>
-                                    <td>1</td>
-                                    <td class="session-date">07/11/2025</td>
-                                    <td>Viernes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Nikole La Cunza</td>
-                                    <td>5-6</td>
-                                    <td class="session-topics">Consultas básicas con SELECT y funciones simples</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">4</td>
-                                    <td>2</td>
-                                    <td class="session-date">10/11/2025</td>
-                                    <td>Lunes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>7-8</td>
-                                    <td class="session-topics">Uso de GROUP BY, HAVING y tipos de datos</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">5</td>
-                                    <td>2</td>
-                                    <td class="session-date">12/11/2025</td>
-                                    <td>Miércoles</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>9-10</td>
-                                    <td class="session-topics">Modificación de datos y uso de INNER JOIN</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">6</td>
-                                    <td>2</td>
-                                    <td class="session-date">14/11/2025</td>
-                                    <td>Viernes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Nikole La Cunza</td>
-                                    <td>11-12</td>
-                                    <td class="session-topics">Subconsultas aplicadas principalmente en WHERE</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">7</td>
-                                    <td>3</td>
-                                    <td class="session-date">17/11/2025</td>
-                                    <td>Lunes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>13-14</td>
-                                    <td class="session-topics">Subconsultas en FROM e introducción a índices</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">8</td>
-                                    <td>3</td>
-                                    <td class="session-date">19/11/2025</td>
-                                    <td>Miércoles</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>15-16</td>
-                                    <td class="session-topics">Uso de CASE, COALESCE y creación de vistas</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">9</td>
-                                    <td>3</td>
-                                    <td class="session-date">21/11/2025</td>
-                                    <td>Viernes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Nikole La Cunza</td>
-                                    <td>17-18</td>
-                                    <td class="session-topics">Procedimientos almacenados y variables en T‑SQL</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">10</td>
-                                    <td>4</td>
-                                    <td class="session-date">24/11/2025</td>
-                                    <td>Lunes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>19-20</td>
-                                    <td class="session-topics">Funciones UDF y control de flujo con IF y WHILE</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">11</td>
-                                    <td>4</td>
-                                    <td class="session-date">26/11/2025</td>
-                                    <td>Miércoles</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>21-22</td>
-                                    <td class="session-topics">Triggers, transacciones y manejo de errores</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">12</td>
-                                    <td>4</td>
-                                    <td class="session-date">28/11/2025</td>
-                                    <td>Viernes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Nikole La Cunza</td>
-                                    <td>23-24</td>
-                                    <td class="session-topics">Joins avanzados y funciones de ventana</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">13</td>
-                                    <td>5</td>
-                                    <td class="session-date">01/12/2025</td>
-                                    <td>Lunes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>25-26</td>
-                                    <td class="session-topics">Uso de CTE y optimización de consultas</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">14</td>
-                                    <td>5</td>
-                                    <td class="session-date">03/12/2025</td>
-                                    <td>Miércoles</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>27-28</td>
-                                    <td class="session-topics">Normalización y primeras formas normales</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">15</td>
-                                    <td>5</td>
-                                    <td class="session-date">05/12/2025</td>
-                                    <td>Viernes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Nikole La Cunza</td>
-                                    <td>29-30</td>
-                                    <td class="session-topics">Tercera forma normal e índices avanzados</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">16</td>
-                                    <td>6</td>
-                                    <td class="session-date">08/12/2025</td>
-                                    <td>Feriado</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td class="session-topics">-</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">17</td>
-                                    <td>6</td>
-                                    <td class="session-date">10/12/2025</td>
-                                    <td>Miércoles</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>31-32</td>
-                                    <td class="session-topics">Funciones de texto, fecha y hora</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">18</td>
-                                    <td>6</td>
-                                    <td class="session-date">12/12/2025</td>
-                                    <td>Viernes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Nikole La Cunza</td>
-                                    <td>33-34</td>
-                                    <td class="session-topics">Procedimientos almacenados avanzados y cursores</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">19</td>
-                                    <td>7</td>
-                                    <td class="session-date">15/12/2025</td>
-                                    <td>Lunes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>35-36</td>
-                                    <td class="session-topics">Introducción al SQL dinámico y depuración</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">20</td>
-                                    <td>7</td>
-                                    <td class="session-date">17/12/2025</td>
-                                    <td>Miércoles</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>37-38</td>
-                                    <td class="session-topics">Particionamiento y seguridad en SQL Server</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">21</td>
-                                    <td>7</td>
-                                    <td class="session-date">19/12/2025</td>
-                                    <td>Viernes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Nikole La Cunza</td>
-                                    <td>39-40</td>
-                                    <td class="session-topics">Backups, restauración y recuperación</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">22</td>
-                                    <td>8</td>
-                                    <td class="session-date">22/12/2025</td>
-                                    <td>Lunes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>41-42</td>
-                                    <td class="session-topics">SSMS avanzado y optimización de índices</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">23</td>
-                                    <td>8</td>
-                                    <td class="session-date">24/12/2025</td>
-                                    <td>Feriado</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td class="session-topics">-</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">24</td>
-                                    <td>8</td>
-                                    <td class="session-date">26/12/2025</td>
-                                    <td>Viernes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Nikole La Cunza</td>
-                                    <td>43-44</td>
-                                    <td class="session-topics">Administración remota y uso de SSRS</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">25</td>
-                                    <td>9</td>
-                                    <td class="session-date">29/12/2025</td>
-                                    <td>Lunes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>45-46</td>
-                                    <td class="session-topics">SSIS y SSAS</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">26</td>
-                                    <td>9</td>
-                                    <td class="session-date">31/12/2025</td>
-                                    <td>Feriado</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td>-</td>
-                                    <td class="session-topics">-</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">27</td>
-                                    <td>9</td>
-                                    <td class="session-date">02/01/2026</td>
-                                    <td>Viernes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Nikole La Cunza</td>
-                                    <td>47-48</td>
-                                    <td class="session-topics">Aplicaciones con T‑SQL y prácticas de subconsultas y
-                                        joins
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">28</td>
-                                    <td>10</td>
-                                    <td class="session-date">05/01/2026</td>
-                                    <td>Lunes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>49-50</td>
-                                    <td class="session-topics">Prácticas de optimización y funciones de ventana</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">29</td>
-                                    <td>10</td>
-                                    <td class="session-date">07/01/2026</td>
-                                    <td>Miércoles</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>51-52</td>
-                                    <td class="session-topics">Integración de T‑SQL con otras tecnologías</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">30</td>
-                                    <td>10</td>
-                                    <td class="session-date">09/01/2026</td>
-                                    <td>Viernes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Nikole La Cunza</td>
-                                    <td>53-54</td>
-                                    <td class="session-topics">Manejo de errores y SQL Server Profiler</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">31</td>
-                                    <td>11</td>
-                                    <td class="session-date">12/01/2026</td>
-                                    <td>Lunes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>55-56</td>
-                                    <td class="session-topics">Seguridad avanzada y rendimiento de consultas</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">32</td>
-                                    <td>11</td>
-                                    <td class="session-date">14/01/2026</td>
-                                    <td>Miércoles</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>57-58</td>
-                                    <td class="session-topics">Práctica de SP y optimización en producción</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">33</td>
-                                    <td>11</td>
-                                    <td class="session-date">16/01/2026</td>
-                                    <td>Viernes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Nikole La Cunza</td>
-                                    <td>59-60</td>
-                                    <td class="session-topics">Análisis de consultas lentas y administración de roles
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">34</td>
-                                    <td>12</td>
-                                    <td class="session-date">19/01/2026</td>
-                                    <td>Lunes</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>61-62</td>
-                                    <td class="session-topics">Carga de datos con SSIS y creación de BD complejas</td>
-                                </tr>
-                                <tr>
-                                    <td class="session-number">35</td>
-                                    <td>12</td>
-                                    <td class="session-date">21/01/2026</td>
-                                    <td>Miércoles</td>
-                                    <td>8:30-10pm</td>
-                                    <td>Alvaro Burga</td>
-                                    <td>63-64</td>
-                                    <td class="session-topics">Migración de datos y cierre del curso</td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="detail-content-section">
+            <div class="syllabus-card">
+                <div class="syllabus-header">
+                    <h2 class="syllabus-title">Temario Completo - MSSQL Server</h2>
+                    <p class="syllabus-description">Desde fundamentos hasta técnicas avanzadas de bases de datos</p>
+                </div>
+                <div class="syllabus-filters">
+                    <div class="filter-group">
+                        <label for="filterDateSql">📅 Filtrar por Fecha:</label>
+                        <input type="date" id="filterDateSql" class="filter-input" onchange="filterTable('sql')">
+                    </div>
+                    <div class="filter-group">
+                        <label for="filterInstructorSql">👨‍💻 Filtrar por Instructor:</label>
+                        <select id="filterInstructorSql" class="filter-select" onchange="filterTable('sql')">
+                            <option value="">Todos los instructores</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filterTopicSql">📚 Filtrar por Tema:</label>
+                        <input type="text" id="filterTopicSql" class="filter-input" placeholder="Ej: SELECT, JOIN..."
+                            oninput="filterTable('sql')">
+                    </div>
+                    <button class="clear-filters-btn" onclick="clearFilters('sql')">✕ Limpiar Filtros</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="syllabus-table">
+                        <thead>
+                            <tr>
+                                <th style="width: 60px;">N°</th>
+                                <th style="width: 70px;">Semana</th>
+                                <th style="width: 100px;">Fecha</th>
+                                <th style="width: 90px;">Día</th>
+                                <th style="width: 100px;">Hora</th>
+                                <th style="width: 130px;">Instructor</th>
+                                <th style="width: 80px;">Sesión</th>
+                                <th>Temas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="session-number">1</td>
+                                <td>1</td>
+                                <td class="session-date">03/11/2025</td>
+                                <td>Lunes</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>1-2</td>
+                                <td class="session-topics">Instalación y configuración inicial de SQL Server</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">2</td>
+                                <td>1</td>
+                                <td class="session-date">05/11/2025</td>
+                                <td>Miércoles</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>3-4</td>
+                                <td class="session-topics">Introducción a SQL Server y primeros pasos con SQL</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">3</td>
+                                <td>1</td>
+                                <td class="session-date">07/11/2025</td>
+                                <td>Viernes</td>
+                                <td>8:30-10pm</td>
+                                <td>Nikole La Cunza</td>
+                                <td>5-6</td>
+                                <td class="session-topics">Consultas básicas con SELECT y funciones simples</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">4</td>
+                                <td>2</td>
+                                <td class="session-date">10/11/2025</td>
+                                <td>Lunes</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>7-8</td>
+                                <td class="session-topics">Uso de GROUP BY, HAVING y tipos de datos</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">5</td>
+                                <td>2</td>
+                                <td class="session-date">12/11/2025</td>
+                                <td>Miércoles</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>9-10</td>
+                                <td class="session-topics">Modificación de datos y uso de INNER JOIN</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">6</td>
+                                <td>2</td>
+                                <td class="session-date">14/11/2025</td>
+                                <td>Viernes</td>
+                                <td>8:30-10pm</td>
+                                <td>Nikole La Cunza</td>
+                                <td>11-12</td>
+                                <td class="session-topics">Subconsultas aplicadas principalmente en WHERE</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">7</td>
+                                <td>3</td>
+                                <td class="session-date">17/11/2025</td>
+                                <td>Lunes</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>13-14</td>
+                                <td class="session-topics">Subconsultas en FROM e introducción a índices</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">8</td>
+                                <td>3</td>
+                                <td class="session-date">19/11/2025</td>
+                                <td>Miércoles</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>15-16</td>
+                                <td class="session-topics">Uso de CASE, COALESCE y creación de vistas</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">9</td>
+                                <td>3</td>
+                                <td class="session-date">21/11/2025</td>
+                                <td>Viernes</td>
+                                <td>8:30-10pm</td>
+                                <td>Nikole La Cunza</td>
+                                <td>17-18</td>
+                                <td class="session-topics">Procedimientos almacenados y variables en T‑SQL</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">10</td>
+                                <td>4</td>
+                                <td class="session-date">24/11/2025</td>
+                                <td>Lunes</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>19-20</td>
+                                <td class="session-topics">Funciones UDF y control de flujo con IF y WHILE</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">11</td>
+                                <td>4</td>
+                                <td class="session-date">26/11/2025</td>
+                                <td>Miércoles</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>21-22</td>
+                                <td class="session-topics">Triggers, transacciones y manejo de errores</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">12</td>
+                                <td>4</td>
+                                <td class="session-date">28/11/2025</td>
+                                <td>Viernes</td>
+                                <td>8:30-10pm</td>
+                                <td>Nikole La Cunza</td>
+                                <td>23-24</td>
+                                <td class="session-topics">Joins avanzados y funciones de ventana</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">13</td>
+                                <td>5</td>
+                                <td class="session-date">01/12/2025</td>
+                                <td>Lunes</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>25-26</td>
+                                <td class="session-topics">Uso de CTE y optimización de consultas</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">14</td>
+                                <td>5</td>
+                                <td class="session-date">03/12/2025</td>
+                                <td>Miércoles</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>27-28</td>
+                                <td class="session-topics">Normalización y primeras formas normales</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">15</td>
+                                <td>5</td>
+                                <td class="session-date">05/12/2025</td>
+                                <td>Viernes</td>
+                                <td>8:30-10pm</td>
+                                <td>Nikole La Cunza</td>
+                                <td>29-30</td>
+                                <td class="session-topics">Tercera forma normal e índices avanzados</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">16</td>
+                                <td>6</td>
+                                <td class="session-date">08/12/2025</td>
+                                <td>Feriado</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td class="session-topics">-</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">17</td>
+                                <td>6</td>
+                                <td class="session-date">10/12/2025</td>
+                                <td>Miércoles</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>31-32</td>
+                                <td class="session-topics">Funciones de texto, fecha y hora</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">18</td>
+                                <td>6</td>
+                                <td class="session-date">12/12/2025</td>
+                                <td>Viernes</td>
+                                <td>8:30-10pm</td>
+                                <td>Nikole La Cunza</td>
+                                <td>33-34</td>
+                                <td class="session-topics">Procedimientos almacenados avanzados y cursores</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">19</td>
+                                <td>7</td>
+                                <td class="session-date">15/12/2025</td>
+                                <td>Lunes</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>35-36</td>
+                                <td class="session-topics">Introducción al SQL dinámico y depuración</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">20</td>
+                                <td>7</td>
+                                <td class="session-date">17/12/2025</td>
+                                <td>Miércoles</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>37-38</td>
+                                <td class="session-topics">Particionamiento y seguridad en SQL Server</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">21</td>
+                                <td>7</td>
+                                <td class="session-date">19/12/2025</td>
+                                <td>Viernes</td>
+                                <td>8:30-10pm</td>
+                                <td>Nikole La Cunza</td>
+                                <td>39-40</td>
+                                <td class="session-topics">Backups, restauración y recuperación</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">22</td>
+                                <td>8</td>
+                                <td class="session-date">22/12/2025</td>
+                                <td>Lunes</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>41-42</td>
+                                <td class="session-topics">SSMS avanzado y optimización de índices</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">23</td>
+                                <td>8</td>
+                                <td class="session-date">24/12/2025</td>
+                                <td>Feriado</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td class="session-topics">-</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">24</td>
+                                <td>8</td>
+                                <td class="session-date">26/12/2025</td>
+                                <td>Viernes</td>
+                                <td>8:30-10pm</td>
+                                <td>Nikole La Cunza</td>
+                                <td>43-44</td>
+                                <td class="session-topics">Administración remota y uso de SSRS</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">25</td>
+                                <td>9</td>
+                                <td class="session-date">29/12/2025</td>
+                                <td>Lunes</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>45-46</td>
+                                <td class="session-topics">SSIS y SSAS</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">26</td>
+                                <td>9</td>
+                                <td class="session-date">31/12/2025</td>
+                                <td>Feriado</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td class="session-topics">-</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">27</td>
+                                <td>9</td>
+                                <td class="session-date">02/01/2026</td>
+                                <td>Viernes</td>
+                                <td>8:30-10pm</td>
+                                <td>Nikole La Cunza</td>
+                                <td>47-48</td>
+                                <td class="session-topics">Aplicaciones con T‑SQL y prácticas de subconsultas y
+                                    joins
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">28</td>
+                                <td>10</td>
+                                <td class="session-date">05/01/2026</td>
+                                <td>Lunes</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>49-50</td>
+                                <td class="session-topics">Prácticas de optimización y funciones de ventana</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">29</td>
+                                <td>10</td>
+                                <td class="session-date">07/01/2026</td>
+                                <td>Miércoles</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>51-52</td>
+                                <td class="session-topics">Integración de T‑SQL con otras tecnologías</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">30</td>
+                                <td>10</td>
+                                <td class="session-date">09/01/2026</td>
+                                <td>Viernes</td>
+                                <td>8:30-10pm</td>
+                                <td>Nikole La Cunza</td>
+                                <td>53-54</td>
+                                <td class="session-topics">Manejo de errores y SQL Server Profiler</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">31</td>
+                                <td>11</td>
+                                <td class="session-date">12/01/2026</td>
+                                <td>Lunes</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>55-56</td>
+                                <td class="session-topics">Seguridad avanzada y rendimiento de consultas</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">32</td>
+                                <td>11</td>
+                                <td class="session-date">14/01/2026</td>
+                                <td>Miércoles</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>57-58</td>
+                                <td class="session-topics">Práctica de SP y optimización en producción</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">33</td>
+                                <td>11</td>
+                                <td class="session-date">16/01/2026</td>
+                                <td>Viernes</td>
+                                <td>8:30-10pm</td>
+                                <td>Nikole La Cunza</td>
+                                <td>59-60</td>
+                                <td class="session-topics">Análisis de consultas lentas y administración de roles
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">34</td>
+                                <td>12</td>
+                                <td class="session-date">19/01/2026</td>
+                                <td>Lunes</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>61-62</td>
+                                <td class="session-topics">Carga de datos con SSIS y creación de BD complejas</td>
+                            </tr>
+                            <tr>
+                                <td class="session-number">35</td>
+                                <td>12</td>
+                                <td class="session-date">21/01/2026</td>
+                                <td>Miércoles</td>
+                                <td>8:30-10pm</td>
+                                <td>Alvaro Burga</td>
+                                <td>63-64</td>
+                                <td class="session-topics">Migración de datos y cierre del curso</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
     </div>
     </div>
