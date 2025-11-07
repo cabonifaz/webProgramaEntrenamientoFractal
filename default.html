@@ -1031,6 +1031,218 @@
             font-weight: 700;
         }
 
+        /* SECCIÓN CLASES EN VIVO - PREVIEW (PÁGINA PRINCIPAL) */
+        .clases-vivo-preview-section {
+            padding: 100px 40px;
+            background: var(--blanco);
+        }
+
+        .clases-vivo-preview-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .clases-vivo-preview-card {
+            background: linear-gradient(135deg, var(--azul-muy-claro) 0%, var(--blanco) 100%);
+            border-radius: 30px;
+            padding: 60px;
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 60px;
+            align-items: center;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.08);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 40px;
+        }
+
+        .clases-vivo-preview-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--azul-principal) 0%, var(--naranja-brillante) 100%);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .clases-vivo-preview-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .clases-vivo-preview-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .preview-icon-large {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .preview-icon-bg {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, var(--azul-principal) 0%, var(--azul-claro) 100%);
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 90px;
+            box-shadow: 0 15px 40px rgba(0, 144, 188, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .clases-vivo-preview-card:hover .preview-icon-bg {
+            transform: rotateY(360deg);
+        }
+
+        .preview-content {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .preview-title {
+            font-size: 36px;
+            font-weight: 900;
+            color: var(--azul-petróleo);
+            margin: 0;
+        }
+
+        .preview-description {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--gris-medio);
+            margin: 0;
+        }
+
+        .preview-features {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .preview-feature-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 16px;
+            color: var(--gris-oscuro);
+            font-weight: 600;
+        }
+
+        .preview-check {
+            width: 28px;
+            height: 28px;
+            background: var(--naranja-muy-claro);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 16px;
+            color: var(--naranja-principal);
+            font-weight: 900;
+        }
+
+        .preview-cta {
+            margin-top: 10px;
+        }
+
+        .preview-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--azul-principal);
+            font-weight: 800;
+            font-size: 18px;
+            transition: gap 0.3s ease;
+        }
+
+        .clases-vivo-preview-card:hover .preview-btn {
+            gap: 18px;
+        }
+
+        .preview-arrow {
+            font-size: 22px;
+        }
+
+        /* RESPONSIVE PREVIEW */
+        @media (max-width: 992px) {
+            .clases-vivo-preview-card {
+                grid-template-columns: 1fr;
+                padding: 50px 40px;
+                gap: 40px;
+            }
+
+            .preview-icon-bg {
+                width: 150px;
+                height: 150px;
+                font-size: 70px;
+            }
+
+            .preview-title {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .clases-vivo-preview-section {
+                padding: 60px 20px;
+            }
+
+            .clases-vivo-preview-card {
+                padding: 40px 30px;
+                gap: 30px;
+            }
+
+            .preview-icon-bg {
+                width: 120px;
+                height: 120px;
+                font-size: 60px;
+                border-radius: 20px;
+            }
+
+            .preview-title {
+                font-size: 28px;
+            }
+
+            .preview-description {
+                font-size: 16px;
+            }
+
+            .preview-feature-item {
+                font-size: 14px;
+            }
+
+            .preview-btn {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .clases-vivo-preview-card {
+                padding: 30px 20px;
+            }
+
+            .preview-title {
+                font-size: 24px;
+            }
+
+            .preview-icon-bg {
+                width: 100px;
+                height: 100px;
+                font-size: 50px;
+            }
+        }
+
         /* RESPONSIVE IA SECTION */
         @media (max-width: 768px) {
             .ia-section {
@@ -2045,6 +2257,10 @@
                         <span class="menu-icon">📅</span>
                         <span>Horarios</span>
                     </a>
+                    <a href="javascript:void(0);" onclick="scrollToSection('clases-vivo'); return false;">
+                        <span class="menu-icon">🎥</span>
+                        <span>Clases en Vivo</span>
+                    </a>
                     <a href="javascript:void(0);" onclick="scrollToSection('instructors'); return false;">
                         <span class="menu-icon">👥</span>
                         <span>Instructores</span>
@@ -2053,6 +2269,7 @@
                         <span class="menu-icon">🤖</span>
                         <span>IA Techs</span>
                     </a>
+
                 </div>
             </div>
         </div>
@@ -2174,7 +2391,8 @@
                         <span class="component-sessions">📖 5 sesiones x semana </span>
                     </div>
                     <div class="component-body">
-                        <p class="component-description">Biblioteca de JavaScript para crear interfaces web dinámicas y responsivas 
+                        <p class="component-description">Biblioteca de JavaScript para crear interfaces web dinámicas y
+                            responsivas
                             usando componentes reutilizables y una gestión eficiente del estado de una app web.</p>
                         <div class="component-features">
                             <div class="feature-item">
@@ -2423,6 +2641,53 @@
             </div>
         </section>
 
+        <!-- CLASES EN VIVO CARD (PÁGINA PRINCIPAL) -->
+        <section class="clases-vivo-preview-section" id="clases-vivo">
+            <div class="clases-vivo-preview-container">
+                <div class="section-header">
+                    <div class="section-badge">🎥 ACCESO DIRECTO</div>
+                    <h2 class="section-title">Clases en Vivo</h2>
+                    <p class="section-description">
+                        Accede a las transmisiones en tiempo real de todas tus clases. Los enlaces se actualizan
+                        automáticamente desde el calendario oficial.
+                    </p>
+                </div>
+
+                <div class="clases-vivo-preview-card" onclick="showDetail('clases-vivo')">
+                    <div class="preview-icon-large">
+                        <div class="preview-icon-bg">🎥</div>
+                    </div>
+                    <div class="preview-content">
+                        <h3 class="preview-title">Enlaces de Transmisión</h3>
+                        <p class="preview-description">
+                            Consulta los enlaces actualizados de Google Meet, Zoom o la plataforma que utilice tu
+                            instructor para cada sesión programada.
+                        </p>
+                        <div class="preview-features">
+                            <div class="preview-feature-item">
+                                <span class="preview-check">✓</span>
+                                <span>Actualización automática desde Google Sheets</span>
+                            </div>
+                            <div class="preview-feature-item">
+                                <span class="preview-check">✓</span>
+                                <span>Acceso directo a cada clase programada</span>
+                            </div>
+                            <div class="preview-feature-item">
+                                <span class="preview-check">✓</span>
+                                <span>Información de fecha, hora y materia</span>
+                            </div>
+                        </div>
+                        <div class="preview-cta">
+                            <span class="preview-btn">
+                                Ver todas las clases en vivo
+                                <span class="preview-arrow">→</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- INSTRUCTORS SECTION -->
         <section class="instructors-section" id="instructors">
             <div class="section-header">
@@ -2581,6 +2846,7 @@
                 </div>
             </div>
         </section>
+
         <footer class="footer">
             <div class="footer-content">
                 <div class="footer-section">
@@ -3009,7 +3275,7 @@
                                 <td>Miércoles</td>
                                 <td>6:30-8pm</td>
                                 <td>Daniel Soto</td>
-                                <td>59-60</td>
+                                <td>61-62</td>
                                 <td class="session-topics">Proyecto MFE - Ampliación y demo (2do avance)</td>
                             </tr>
                             <tr>
@@ -3019,7 +3285,7 @@
                                 <td>Jueves</td>
                                 <td>6:30-8pm</td>
                                 <td>Aymara Grelds</td>
-                                <td>59-60</td>
+                                <td>63-64</td>
                                 <td class="session-topics">Proyecto MFE - Integración avanzada (3er avance)</td>
                             </tr>
                             <tr>
@@ -3029,7 +3295,7 @@
                                 <td>Viernes</td>
                                 <td>6:30-8pm</td>
                                 <td>Daniel Soto</td>
-                                <td>59-60</td>
+                                <td>65-66</td>
                                 <td class="session-topics">Proyecto MFE - Presentación final y retroalimentación</td>
                             </tr>
                         </tbody>
@@ -4106,6 +4372,44 @@
             </div>
         </div>
     </div>
+    <!-- VISTA DETALLE CLASES EN VIVO -->
+    <div class="detail-view" id="clases-vivoDetail">
+        <div class="detail-hero"
+            style="background: linear-gradient(135deg, var(--azul-principal) 0%, var(--azul-claro) 100%);">
+            <div class="detail-hero-content">
+                <button class="back-btn" onclick="goBack()">← Volver al inicio</button>
+                <div class="detail-title-section">
+                    <div class="detail-icon-large">
+                        <span style="font-size: 50px;">🎥</span>
+                    </div>
+                    <div>
+                        <h1 class="detail-title">Clases en Vivo</h1>
+                        <div class="detail-meta">
+                            <span class="meta-item">📡 Transmisión en directo</span>
+                            <span class="meta-item">🔄 Actualización automática</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="detail-content-section">
+            <div class="syllabus-card">
+                <div class="syllabus-header">
+                    <h2 class="syllabus-title">Enlaces de Transmisión</h2>
+                    <p class="syllabus-description">Accede directamente a las clases programadas desde aquí</p>
+                </div>
+
+                <div class="table-container" style="margin-top: 40px;">
+                    <div class="loading-message" id="loading-message">⏳ Cargando datos...</div>
+                    <table id="tabla-datos" style="display: none;">
+                        <thead></thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         function scrollToSection(id) {
             // Cerrar menú primero
@@ -4287,6 +4591,242 @@
                 populateFilters(tech);
             }, 100);
         };
+    </script>
+
+    <script>
+        // ✅ URL CONFIRMADA QUE FUNCIONA
+        const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSHSGGqM6-uG_6cc4srQWzU3qdV2i-_-lCEgJf84puWaovzfA-1srVRwb-bbGv-YEn0scoBt9OBTU8t/pub?gid=674298889&single=true&output=csv';
+
+        async function cargarDatosSheet() {
+            const loadingMsg = document.getElementById('loading-message');
+            const tabla = document.getElementById('tabla-datos');
+
+            try {
+                loadingMsg.innerHTML = '⏳ Cargando datos desde Google Sheets...';
+
+                const response = await fetch(sheetURL, {
+                    method: 'GET',
+                    mode: 'cors',
+                    headers: {
+                        'Accept': 'text/csv,text/plain,*/*'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Error al conectar con Google Sheets`);
+                }
+
+                const csv = await response.text();
+
+                if (!csv || csv.trim() === '') {
+                    throw new Error('No hay datos disponibles');
+                }
+
+                // Procesar CSV línea por línea
+                const lineas = csv.split('\n').filter(linea => linea.trim().length > 0);
+
+                if (lineas.length === 0) {
+                    throw new Error('No se encontraron datos');
+                }
+
+                // Procesar cada línea respetando comillas
+                const filas = lineas.map(linea => {
+                    const valores = [];
+                    let valorActual = '';
+                    let dentroDeComillas = false;
+
+                    for (let i = 0; i < linea.length; i++) {
+                        const char = linea[i];
+
+                        if (char === '"') {
+                            dentroDeComillas = !dentroDeComillas;
+                        } else if (char === ',' && !dentroDeComillas) {
+                            valores.push(valorActual.replace(/^"|"$/g, '').trim());
+                            valorActual = '';
+                        } else {
+                            valorActual += char;
+                        }
+                    }
+                    valores.push(valorActual.replace(/^"|"$/g, '').trim());
+                    return valores;
+                });
+
+                const [encabezados, ...datos] = filas;
+
+                // Filtrar solo filas con datos reales
+                const datosReales = datos.filter(fila => {
+                    return fila.some(celda => celda && celda.trim() !== '' && celda.trim() !== '-');
+                });
+
+                // Si no hay datos reales, mostrar mensaje amigable
+                if (datosReales.length === 0) {
+                    loadingMsg.innerHTML = `
+                <div style="text-align: center; 
+                            padding: 80px 40px;
+                            background: linear-gradient(135deg, var(--azul-muy-claro) 0%, var(--blanco) 100%);
+                            border-radius: 25px;
+                            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);">
+                    
+                    <div style="font-size: 100px; margin-bottom: 30px; animation: fadeIn 1s ease;">
+                        📅
+                    </div>
+                    
+                    <h3 style="color: var(--azul-petróleo); 
+                               font-size: 32px; 
+                               font-weight: 900; 
+                               margin-bottom: 20px;
+                               line-height: 1.3;">
+                        Sin clases programadas en este momento
+                    </h3>
+                    
+                    <p style="color: var(--gris-medio); 
+                              font-size: 18px; 
+                              line-height: 1.7;
+                              max-width: 600px;
+                              margin: 0 auto 30px;">
+                        Los enlaces de las clases en vivo se publicarán próximamente.<br>
+                        Mantente atento a las actualizaciones del calendario.
+                    </p>
+                    
+                    <div style="display: inline-flex;
+                               align-items: center;
+                               gap: 10px;
+                               background: rgba(0, 144, 188, 0.1);
+                               padding: 15px 30px;
+                               border-radius: 50px;
+                               margin-top: 20px;">
+                        <span style="font-size: 24px;">💡</span>
+                        <span style="color: var(--azul-principal); 
+                                     font-weight: 700;
+                                     font-size: 16px;">
+                            Revisa el cronograma en la sección de Horarios
+                        </span>
+                    </div>
+                </div>
+                
+                <style>
+                    @keyframes fadeIn {
+                        from { opacity: 0; transform: scale(0.8); }
+                        to { opacity: 1; transform: scale(1); }
+                    }
+                </style>
+            `;
+                    return;
+                }
+
+                const thead = tabla.querySelector('thead');
+                const tbody = tabla.querySelector('tbody');
+
+                // Crear encabezados
+                thead.innerHTML = '<tr>' + encabezados.map(h =>
+                    `<th>${h || 'Sin título'}</th>`
+                ).join('') + '</tr>';
+
+                // Crear filas de datos
+                tbody.innerHTML = datosReales.map((fila) => {
+                    return '<tr>' + fila.map((celda, i) => {
+                        const encabezado = (encabezados[i] || '').toLowerCase();
+
+                        // Detectar columnas de enlaces
+                        const esColumnaLink = encabezado.includes('link') ||
+                            encabezado.includes('enlace') ||
+                            encabezado.includes('url') ||
+                            encabezado.includes('clase');
+
+                        // Detectar si el contenido es una URL
+                        const esURL = celda && (
+                            celda.startsWith('http://') ||
+                            celda.startsWith('https://') ||
+                            celda.startsWith('www.')
+                        );
+
+                        // Si es un enlace, crear botón estilizado
+                        if ((esColumnaLink || esURL) && celda && celda.trim() !== '') {
+                            const urlFinal = celda.startsWith('www.') ? 'https://' + celda : celda;
+                            return `<td>
+                        <a href="${urlFinal}" 
+                           target="_blank" 
+                           rel="noopener noreferrer"
+                           style="display: inline-block; 
+                                  padding: 10px 20px; 
+                                  background: linear-gradient(135deg, #0090BC, #33A8CB); 
+                                  color: white; 
+                                  text-decoration: none; 
+                                  border-radius: 8px; 
+                                  font-weight: 600; 
+                                  font-size: 13px;
+                                  transition: all 0.3s ease;
+                                  box-shadow: 0 2px 8px rgba(0,144,188,0.3);"
+                           onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,144,188,0.4)';"
+                           onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 8px rgba(0,144,188,0.3)';">
+                            🎥 Ir a clase
+                        </a>
+                    </td>`;
+                        }
+
+                        return `<td>${celda || '-'}</td>`;
+                    }).join('') + '</tr>';
+                }).join('');
+
+                // Mostrar tabla y ocultar mensaje de carga
+                loadingMsg.style.display = 'none';
+                tabla.style.display = 'table';
+
+            } catch (error) {
+                console.error('Error al cargar datos:', error);
+
+                // Mensaje de error simple y amigable
+                loadingMsg.innerHTML = `
+            <div style="text-align: center; 
+                        padding: 80px 40px;
+                        background: linear-gradient(135deg, #fff9e6 0%, var(--blanco) 100%);
+                        border-radius: 25px;
+                        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);">
+                
+                <div style="font-size: 100px; margin-bottom: 30px;">🔌</div>
+                
+                <h3 style="color: var(--azul-petróleo); 
+                           font-size: 32px; 
+                           font-weight: 900; 
+                           margin-bottom: 20px;">
+                    No se pudieron cargar las clases
+                </h3>
+                
+                <p style="color: var(--gris-medio); 
+                          font-size: 18px; 
+                          line-height: 1.7;
+                          max-width: 600px;
+                          margin: 0 auto 30px;">
+                    Parece que hay un problema con la conexión al calendario.<br>
+                    Por favor, intenta recargar la página o contacta al coordinador.
+                </p>
+                
+<button onclick="cargarDatosSheet()" 
+        style="background: linear-gradient(135deg, var(--azul-principal) 0%, var(--azul-claro) 100%);
+               color: white;
+               border: none;
+               padding: 15px 40px;
+               border-radius: 50px;
+               font-weight: 700;
+               font-size: 16px;
+               cursor: pointer;
+               box-shadow: 0 6px 20px rgba(0, 144, 188, 0.3);
+               transition: all 0.3s ease;"
+        onmouseover="this.style.transform='translateY(-3px)'; this.style.boxShadow='0 8px 25px rgba(0, 144, 188, 0.4)';"
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 20px rgba(0, 144, 188, 0.3)';">
+    🔄 Reintentar carga
+</button>
+            </div>
+        `;
+            }
+        }
+
+        // Ejecutar cuando el DOM esté listo
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', cargarDatosSheet);
+        } else {
+            cargarDatosSheet();
+        }
     </script>
 </body>
 
