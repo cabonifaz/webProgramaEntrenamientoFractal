@@ -2234,6 +2234,8 @@
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             border-radius: 15px;
+            max-width: 100%;
+            margin: 0;
         }
 
         #tabla-datos {
@@ -2241,6 +2243,7 @@
             border-collapse: collapse;
             min-width: 800px;
             background: var(--blanco);
+            table-layout: fixed;
         }
 
         #tabla-datos thead tr {
@@ -2250,12 +2253,14 @@
         #tabla-datos th {
             background: var(--azul-petróleo);
             color: var(--blanco);
-            padding: 18px;
+            padding: 15px 12px;
             text-align: left;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 13px;
             text-transform: uppercase;
             white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         #tabla-datos th:first-child {
@@ -2267,11 +2272,13 @@
         }
 
         #tabla-datos td {
-            padding: 18px;
+            padding: 15px 12px;
             border-bottom: 1px solid var(--gris-claro);
-            font-size: 14px;
+            font-size: 13px;
             color: var(--gris-oscuro);
             white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         #tabla-datos tbody tr:hover td {
@@ -2291,10 +2298,88 @@
         }
 
         .loading-message {
-            padding: 40px;
+            padding: 40px 20px;
             text-align: center;
             font-size: 18px;
             color: var(--gris-medio);
+        }
+
+        /* SCROLL HORIZONTAL PERSONALIZADO */
+        .table-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            background: var(--gris-claro);
+            border-radius: 5px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background: var(--azul-principal);
+            border-radius: 5px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: var(--azul-petróleo);
+        }
+
+        /* RESPONSIVE PARA CLASES EN VIVO */
+        @media (max-width: 1024px) {
+            #tabla-datos {
+                min-width: 750px;
+            }
+
+            #tabla-datos th,
+            #tabla-datos td {
+                padding: 12px 10px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .syllabus-card {
+                padding: 30px 15px !important;
+            }
+
+            #tabla-datos {
+                min-width: 700px;
+            }
+
+            #tabla-datos th,
+            #tabla-datos td {
+                padding: 10px 8px;
+                font-size: 11px;
+            }
+
+            .table-container {
+                border-radius: 10px;
+            }
+
+            .loading-message {
+                padding: 30px 15px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .syllabus-card {
+                padding: 25px 10px !important;
+            }
+
+            #tabla-datos {
+                min-width: 650px;
+            }
+
+            #tabla-datos th,
+            #tabla-datos td {
+                padding: 8px 6px;
+                font-size: 10px;
+            }
+
+            .loading-message {
+                padding: 25px 10px;
+                font-size: 15px;
+            }
         }
 
         /* SCROLL HORIZONTAL PERSONALIZADO */
@@ -4528,12 +4613,14 @@
                     <p class="syllabus-description">Accede directamente a las clases programadas desde aquí</p>
                 </div>
 
-                <div class="table-container" style="margin-top: 40px;">
+                <div style="margin-top: 40px; overflow: hidden;">
                     <div class="loading-message" id="loading-message">⏳ Cargando datos...</div>
-                    <table id="tabla-datos" style="display: none;">
-                        <thead></thead>
-                        <tbody></tbody>
-                    </table>
+                    <div class="table-container" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+                        <table id="tabla-datos" style="display: none;">
+                            <thead></thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
