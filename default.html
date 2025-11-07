@@ -2228,6 +2228,135 @@
             font-size: 18px;
             color: var(--gris-medio);
         }
+
+        /* ESTILOS PARA TABLA DE CLASES EN VIVO */
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 15px;
+        }
+
+        #tabla-datos {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+            background: var(--blanco);
+        }
+
+        #tabla-datos thead tr {
+            background: var(--azul-petróleo);
+        }
+
+        #tabla-datos th {
+            background: var(--azul-petróleo);
+            color: var(--blanco);
+            padding: 18px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        #tabla-datos th:first-child {
+            border-top-left-radius: 15px;
+        }
+
+        #tabla-datos th:last-child {
+            border-top-right-radius: 15px;
+        }
+
+        #tabla-datos td {
+            padding: 18px;
+            border-bottom: 1px solid var(--gris-claro);
+            font-size: 14px;
+            color: var(--gris-oscuro);
+            white-space: nowrap;
+        }
+
+        #tabla-datos tbody tr:hover td {
+            background: var(--azul-muy-claro);
+        }
+
+        #tabla-datos tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        #tabla-datos tbody tr:last-child td:first-child {
+            border-bottom-left-radius: 15px;
+        }
+
+        #tabla-datos tbody tr:last-child td:last-child {
+            border-bottom-right-radius: 15px;
+        }
+
+        .loading-message {
+            padding: 40px;
+            text-align: center;
+            font-size: 18px;
+            color: var(--gris-medio);
+        }
+
+        /* SCROLL HORIZONTAL PERSONALIZADO */
+        .table-container::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .table-container::-webkit-scrollbar-track {
+            background: var(--gris-claro);
+            border-radius: 5px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb {
+            background: var(--azul-principal);
+            border-radius: 5px;
+        }
+
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: var(--azul-petróleo);
+        }
+
+        /* RESPONSIVE PARA CLASES EN VIVO */
+        @media (max-width: 768px) {
+            #tabla-datos {
+                min-width: 700px;
+                font-size: 13px;
+            }
+
+            #tabla-datos th,
+            #tabla-datos td {
+                padding: 12px 10px;
+                font-size: 12px;
+            }
+
+            .table-container {
+                margin: 20px -15px;
+                padding: 0 15px;
+            }
+
+            .loading-message {
+                padding: 30px 20px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #tabla-datos {
+                min-width: 600px;
+                font-size: 12px;
+            }
+
+            #tabla-datos th,
+            #tabla-datos td {
+                padding: 10px 8px;
+                font-size: 11px;
+            }
+
+            .table-container {
+                margin: 15px -10px;
+                padding: 0 10px;
+            }
+        }
     </style>
 </head>
 
