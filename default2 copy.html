@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario de Clases - Vista Completa</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f2540 100%);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .header p {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        .calendar-wrapper {
+            padding: 30px;
+        }
+
+        .months-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .month-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .month-title {
+            text-align: center;
+            font-size: 1.4em;
+            color: #333;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .day-header {
+            text-align: center;
+            font-weight: 600;
+            color: #667eea;
+            padding: 8px 3px;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .day {
+            aspect-ratio: 1;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            min-height: 60px;
+        }
+
+        .day:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .day.empty {
+            background: transparent;
+            border: none;
+            cursor: default;
+        }
+
+        .day.empty:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .day-number {
+            font-size: 1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 3px;
+        }
+
+        .day.class-day {
+            border: none;
+            color: white;
+        }
+
+        .day.class-day .day-number {
+            color: white;
+            font-size: 1.1em;
+            font-weight: 700;
+        }
+
+        .day.class-day.gestion {
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+        }
+
+.day.class-day.arquitectura {
+    background: linear-gradient(135deg, #d69e2e 0%, #b7791f 100%);
+}
+
+        .day.class-day.backend {
+            background: linear-gradient(135deg, #5a67d8 0%, #434190 100%);
+        }
+
+        .day.class-day.frontend {
+            background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        }
+
+        .day.class-day.aicoding {
+            background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+        }
+
+        .day.class-day.cloudaws {
+            background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+        }
+
+        .class-label {
+            font-size: 0.55em;
+            font-weight: 600;
+            text-align: center;
+            padding: 3px 5px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            margin-top: 3px;
+            line-height: 1.1;
+        }
+
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 12px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9em;
+        }
+
+        .legend-color {
+            width: 25px;
+            height: 25px;
+            border-radius: 6px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+        }
+
+.legend-color.gestion {
+    background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+}
+
+.legend-color.arquitectura {
+    background: linear-gradient(135deg, #d69e2e 0%, #b7791f 100%);
+}
+
+.legend-color.backend {
+    background: linear-gradient(135deg, #5a67d8 0%, #434190 100%);
+}
+
+.legend-color.frontend {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+}
+
+.legend-color.aicoding {
+    background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);
+}
+
+.legend-color.cloudaws {
+    background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+}
+
+        @media (max-width: 1200px) {
+            .months-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .calendar {
+                gap: 5px;
+            }
+
+            .day {
+                min-height: 50px;
+            }
+
+            .day-number {
+                font-size: 0.9em;
+            }
+
+            .class-label {
+                font-size: 0.5em;
+                padding: 2px 4px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+            }
+
+            .calendar-wrapper {
+                padding: 15px;
+            }
+
+            .legend {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Calendario de Clases 2025-2026</h1>
+            <p>Noviembre 2025 - Febrero 2026 | Vista Completa</p>
+        </div>
+
+        <div class="calendar-wrapper">
+            <div class="months-grid">
+                <!-- NOVIEMBRE 2025 -->
+                <div class="month-container">
+                    <h2 class="month-title">Noviembre 2025</h2>
+                    <div class="calendar">
+                        <div class="day-header">L</div>
+                        <div class="day-header">M</div>
+                        <div class="day-header">X</div>
+                        <div class="day-header">J</div>
+                        <div class="day-header">V</div>
+                        <div class="day-header">S</div>
+                        <div class="day-header">D</div>
+
+                        <div class="day empty"></div>
+                        <div class="day empty"></div>
+                        <div class="day empty"></div>
+                        <div class="day empty"></div>
+                        <div class="day empty"></div>
+                        <div class="day">
+                            <div class="day-number">1</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">2</div>
+                        </div>
+
+                        <div class="day">
+                            <div class="day-number">3</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">4</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">5</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">6</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">7</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">8</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">9</div>
+                        </div>
+
+                        <div class="day">
+                            <div class="day-number">10</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">11</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">12</div>
+                        </div>
+                        <div class="day class-day gestion">
+                            <div class="day-number">13</div>
+                            <div class="class-label">Gestión</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">14</div>
+                        </div>
+                        <div class="day class-day gestion">
+                            <div class="day-number">15</div>
+                            <div class="class-label">Gestión</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">16</div>
+                        </div>
+
+                        <div class="day">
+                            <div class="day-number">17</div>
+                        </div>
+                        <div class="day class-day gestion">
+                            <div class="day-number">18</div>
+                            <div class="class-label">Gestión</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">19</div>
+                        </div>
+                        <div class="day class-day gestion">
+                            <div class="day-number">20</div>
+                            <div class="class-label">Gestión</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">21</div>
+                        </div>
+                        <div class="day class-day gestion">
+                            <div class="day-number">22</div>
+                            <div class="class-label">Gestión</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">23</div>
+                        </div>
+
+                        <div class="day">
+                            <div class="day-number">24</div>
+                        </div>
+                        <div class="day class-day gestion">
+                            <div class="day-number">25</div>
+                            <div class="class-label">Gestión</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">26</div>
+                        </div>
+                        <div class="day class-day arquitectura">
+                            <div class="day-number">27</div>
+                            <div class="class-label">Arquitectura</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">28</div>
+                        </div>
+                        <div class="day class-day arquitectura">
+                            <div class="day-number">29</div>
+                            <div class="class-label">Arquitectura</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">30</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DICIEMBRE 2025 -->
+                <div class="month-container">
+                    <h2 class="month-title">Diciembre 2025</h2>
+                    <div class="calendar">
+                        <div class="day-header">L</div>
+                        <div class="day-header">M</div>
+                        <div class="day-header">X</div>
+                        <div class="day-header">J</div>
+                        <div class="day-header">V</div>
+                        <div class="day-header">S</div>
+                        <div class="day-header">D</div>
+
+                        <div class="day">
+                            <div class="day-number">1</div>
+                        </div>
+                        <div class="day class-day arquitectura">
+                            <div class="day-number">2</div>
+                            <div class="class-label">Arquitectura</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">3</div>
+                        </div>
+                        <div class="day class-day backend">
+                            <div class="day-number">4</div>
+                            <div class="class-label">Back-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">5</div>
+                        </div>
+                        <div class="day class-day backend">
+                            <div class="day-number">6</div>
+                            <div class="class-label">Back-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">7</div>
+                        </div>
+
+                        <div class="day">
+                            <div class="day-number">8</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">9</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">10</div>
+                        </div>
+                        <div class="day class-day backend">
+                            <div class="day-number">11</div>
+                            <div class="class-label">Back-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">12</div>
+                        </div>
+                        <div class="day class-day backend">
+                            <div class="day-number">13</div>
+                            <div class="class-label">Back-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">14</div>
+                        </div>
+
+                        <div class="day">
+                            <div class="day-number">15</div>
+                        </div>
+                        <div class="day class-day backend">
+                            <div class="day-number">16</div>
+                            <div class="class-label">Back-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">17</div>
+                        </div>
+                        <div class="day class-day backend">
+                            <div class="day-number">18</div>
+                            <div class="class-label">Back-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">19</div>
+                        </div>
+                        <div class="day class-day backend">
+                            <div class="day-number">20</div>
+                            <div class="class-label">Back-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">21</div>
+                        </div>
+
+                        <div class="day">
+                            <div class="day-number">22</div>
+                        </div>
+                        <div class="day class-day backend">
+                            <div class="day-number">23</div>
+                            <div class="class-label">Back-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">24</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">25</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">26</div>
+                        </div>
+                        <div class="day class-day backend">
+                            <div class="day-number">27</div>
+                            <div class="class-label">Back-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">28</div>
+                        </div>
+
+                        <div class="day">
+                            <div class="day-number">29</div>
+                        </div>
+                        <div class="day class-day backend">
+                            <div class="day-number">30</div>
+                            <div class="class-label">Back-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">31</div>
+                        </div>
+                        <div class="day empty"></div>
+                        <div class="day empty"></div>
+                        <div class="day empty"></div>
+                        <div class="day empty"></div>
+                    </div>
+                </div>
+
+                <!-- ENERO 2026 -->
+                <div class="month-container">
+                    <h2 class="month-title">Enero 2026</h2>
+                    <div class="calendar">
+                        <div class="day-header">L</div>
+                        <div class="day-header">M</div>
+                        <div class="day-header">X</div>
+                        <div class="day-header">J</div>
+                        <div class="day-header">V</div>
+                        <div class="day-header">S</div>
+                        <div class="day-header">D</div>
+
+                        <div class="day empty"></div>
+                        <div class="day empty"></div>
+                        <div class="day empty"></div>
+                        <div class="day">
+                            <div class="day-number">1</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">2</div>
+                        </div>
+                        <div class="day class-day backend">
+                            <div class="day-number">3</div>
+                            <div class="class-label">Back-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">4</div>
+                        </div>
+
+                        <div class="day">
+                            <div class="day-number">5</div>
+                        </div>
+                        <div class="day class-day backend">
+                            <div class="day-number">6</div>
+                            <div class="class-label">Back-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">7</div>
+                        </div>
+                        <div class="day class-day frontend">
+                            <div class="day-number">8</div>
+                            <div class="class-label">Front-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">9</div>
+                        </div>
+                        <div class="day class-day frontend">
+                            <div class="day-number">10</div>
+                            <div class="class-label">Front-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">11</div>
+                        </div>
+
+                        <div class="day">
+                            <div class="day-number">12</div>
+                        </div>
+                        <div class="day class-day frontend">
+                            <div class="day-number">13</div>
+                            <div class="class-label">Front-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">14</div>
+                        </div>
+                        <div class="day class-day frontend">
+                            <div class="day-number">15</div>
+                            <div class="class-label">Front-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">16</div>
+                        </div>
+                        <div class="day class-day frontend">
+                            <div class="day-number">17</div>
+                            <div class="class-label">Front-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">18</div>
+                        </div>
+
+                        <div class="day">
+                            <div class="day-number">19</div>
+                        </div>
+                        <div class="day class-day frontend">
+                            <div class="day-number">20</div>
+                            <div class="class-label">Front-End</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">21</div>
+                        </div>
+                        <div class="day class-day aicoding">
+                            <div class="day-number">22</div>
+                            <div class="class-label">AI-Coding</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">23</div>
+                        </div>
+                        <div class="day class-day aicoding">
+                            <div class="day-number">24</div>
+                            <div class="class-label">AI-Coding</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">25</div>
+                        </div>
+
+                        <div class="day">
+                            <div class="day-number">26</div>
+                        </div>
+                        <div class="day class-day aicoding">
+                            <div class="day-number">27</div>
+                            <div class="class-label">AI-Coding</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">28</div>
+                        </div>
+                        <div class="day class-day cloudaws">
+                            <div class="day-number">29</div>
+                            <div class="class-label">Cloud-AWS</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">30</div>
+                        </div>
+                        <div class="day class-day cloudaws">
+                            <div class="day-number">31</div>
+                            <div class="class-label">Cloud-AWS</div>
+                        </div>
+                        <div class="day empty"></div>
+                    </div>
+                </div>
+
+                <!-- FEBRERO 2026 -->
+                <div class="month-container">
+                    <h2 class="month-title">Febrero 2026</h2>
+                    <div class="calendar">
+                        <div class="day-header">L</div>
+                        <div class="day-header">M</div>
+                        <div class="day-header">X</div>
+                        <div class="day-header">J</div>
+                        <div class="day-header">V</div>
+                        <div class="day-header">S</div>
+                        <div class="day-header">D</div>
+
+                        <div class="day empty"></div>
+                        <div class="day empty"></div>
+                        <div class="day empty"></div>
+                        <div class="day empty"></div>
+                        <div class="day empty"></div>
+                        <div class="day empty"></div>
+                        <div class="day">
+                            <div class="day-number">1</div>
+                        </div>
+
+                        <div class="day">
+                            <div class="day-number">2</div>
+                        </div>
+                        <div class="day class-day cloudaws">
+                            <div class="day-number">3</div>
+                            <div class="class-label">Cloud-AWS</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">4</div>
+                        </div>
+                        <div class="day class-day cloudaws">
+                            <div class="day-number">5</div>
+                            <div class="class-label">Cloud-AWS</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">6</div>
+                        </div>
+                        <div class="day class-day cloudaws">
+                            <div class="day-number">7</div>
+                            <div class="class-label">Cloud-AWS</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">8</div>
+                        </div>
+
+                        <div class="day">
+                            <div class="day-number">9</div>
+                        </div>
+                        <div class="day class-day cloudaws">
+                            <div class="day-number">10</div>
+                            <div class="class-label">Cloud-AWS</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">11</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">12</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">13</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">14</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">15</div>
+                        </div>
+
+                        <div class="day">
+                            <div class="day-number">16</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">17</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">18</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">19</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">20</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">21</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">22</div>
+                        </div>
+
+                        <div class="day">
+                            <div class="day-number">23</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">24</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">25</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">26</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">27</div>
+                        </div>
+                        <div class="day">
+                            <div class="day-number">28</div>
+                        </div>
+                        <div class="day empty"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LEGEND -->
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color gestion"></div>
+                    <span><strong>Gestión de Proyectos</strong> (6 clases)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color arquitectura"></div>
+                    <span><strong>Arquitectura</strong> (3 clases)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color backend"></div>
+                    <span><strong>Back-End</strong> (12 clases)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color frontend"></div>
+                    <span><strong>Front-End</strong> (6 clases)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color aicoding"></div>
+                    <span><strong>AI-Coding</strong> (3 clases)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color cloudaws"></div>
+                    <span><strong>Cloud-AWS</strong> (6 clases)</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
